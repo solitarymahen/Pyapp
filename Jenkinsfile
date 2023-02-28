@@ -7,13 +7,13 @@ node{
 			sh '''
 			cd /var/lib/jenkins/workspace/Testing
 			aws ecr get-login-password --region ap-southeast-1 |  docker login --username AWS --password-stdin 610068533440.dkr.ecr.ap-southeast-1.amazonaws.com
-			docker build -t Pyapp .
-			docker tag Pyapp:latest 610068533440.dkr.ecr.ap-southeast-1.amazonaws.com/n2ogaming-github:Pyapp
+			docker build -t pyapp .
+			docker tag Pyapp:latest 610068533440.dkr.ecr.ap-southeast-1.amazonaws.com/n2ogaming-github:pyapp
 			'''
         }
         stage('Push to ECR'){
 			sh '''
-			docker push 610068533440.dkr.ecr.ap-southeast-1.amazonaws.com/n2ogaming-github:Pyapp
+			docker push 610068533440.dkr.ecr.ap-southeast-1.amazonaws.com/n2ogaming-github:pyapp
 			'''
 	}
 
