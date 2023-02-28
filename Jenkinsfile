@@ -11,20 +11,16 @@ pipeline {
   BRANCH_NAME = "${env.BRANCH_NAME}"
   GIT_LOCAL_BRANCH = "${env.GIT_LOCAL_BRANCH}"
  }
- stages {
-  stage("Stage Name") {
-   steps {
-    echo '**** Build ****'
-   }
-  }
- }
- post {
-  success {
-   echo '----------Sending Build Notification to CDD--------------'
-   echo "Environment variables: GIT_BRANCH: [$GIT_BRANCH], GIT COMMITER: [$GIT_COMMITTER_NAME], GIT_AUTHOR: [$GIT_AUTHOR_NAME]"
-    echo '----------CloudBees Jenkins Pipeline completed successfully--------------'
-  }
- }
+    stages {
+        stage("Get git information") {
+            steps {
+                script {
+                    env.GIT_COMMIT_MSG = sh (script: 'git log -1 --pretty=%B ${GIT_COMMIT}', returnStdout: true).trim()
+                    env.GIT_COMMITTER = sh (script: 'git show -s --pretty=%an', returnStdout: true).trim()
+                }
+            }
+        }
+
 }
 
 
@@ -33,6 +29,7 @@ node{
 		
 	stage('Pull from Github'){
 			sh '''
+			echo %0a%0a%22$GIT_COMMIT_MSG%22%0a-$GIT_COMMITTER
 			cd /var/lib/jenkins/workspace/Testing
 			aws ecr get-login-password --region ap-southeast-1 |  docker login --username AWS --password-stdin 610068533440.dkr.ecr.ap-southeast-1.amazonaws.com
 			docker build -t pyapp .
