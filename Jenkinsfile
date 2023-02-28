@@ -1,8 +1,6 @@
 //jenkinsfile
 pipeline {
- agent {
-  label 'master'
- }
+ agent any
  environment {
   CDD_APPLICATION_NAME = "${env.GIT_URL}"
   CDD_APPLICATION_VERSION_NAME = "${env.GIT_BRANCH}"
