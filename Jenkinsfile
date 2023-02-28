@@ -5,7 +5,7 @@ node{
 		
 	stage('Pull from Github'){
 			sh '''
-			cd /var/lib/jenkins/workspace/Pyapp
+			cd /var/lib/jenkins/workspace/Testing
 			aws ecr get-login-password --region ap-southeast-1 |  docker login --username AWS --password-stdin 610068533440.dkr.ecr.ap-southeast-1.amazonaws.com
 			docker build -t Pyapp .
 			docker tag Pyapp:latest 610068533440.dkr.ecr.ap-southeast-1.amazonaws.com/n2ogaming-github:Pyapp
