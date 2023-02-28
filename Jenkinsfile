@@ -1,4 +1,33 @@
 //jenkinsfile
+pipeline {
+ agent {
+  label 'master'
+ }
+ environment {
+  CDD_APPLICATION_NAME = "${env.GIT_URL}"
+  CDD_APPLICATION_VERSION_NAME = "${env.GIT_BRANCH}"
+  CDD_GIT_COMMIT_ID = "${env.GIT_COMMIT}"
+  CDD_PREVIOUS_GIT_COMMIT_ID = "${env.GIT_PREVIOUS_SUCCESSFUL_COMMIT}"
+  GIT_BRANCH = "${env.GIT_BRANCH}"
+  BRANCH_NAME = "${env.BRANCH_NAME}"
+  GIT_LOCAL_BRANCH = "${env.GIT_LOCAL_BRANCH}"
+ }
+ stages {
+  stage("Stage Name") {
+   steps {
+    echo '**** Build ****'
+   }
+  }
+ }
+ post {
+  success {
+   echo '----------Sending Build Notification to CDD--------------'
+   echo "Environment variables: GIT_BRANCH: [$GIT_BRANCH], BRANCH_NAME: [$BRANCH_NAME], GIT_LOCAL_BRANCH: [$GIT_LOCAL_BRANCH]"
+    echo '----------CloudBees Jenkins Pipeline completed successfully--------------'
+  }
+ }
+}
+
 
 node{
 	git branch: 'main', credentialsId: '745a6d6a-e47d-4f65-984d-285a959fdf9a', url: 'https://github.com/teddmhndr/Pyapp.git'
