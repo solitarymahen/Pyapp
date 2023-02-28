@@ -2,7 +2,8 @@
 pipeline {
  agent any
  environment {
-  GIT_COMMITER = "${env.GIT_COMMITER}"
+  GIT_AUTHOR_NAME = "${env.GIT_AUTHOR_NAME}"
+  GIT_COMMITTER_NAME = "${env.GIT_COMMITTER_NAME}"
   CDD_APPLICATION_VERSION_NAME = "${env.GIT_BRANCH}"
   CDD_GIT_COMMIT_ID = "${env.GIT_COMMIT}"
   CDD_PREVIOUS_GIT_COMMIT_ID = "${env.GIT_PREVIOUS_SUCCESSFUL_COMMIT}"
@@ -20,7 +21,7 @@ pipeline {
  post {
   success {
    echo '----------Sending Build Notification to CDD--------------'
-   echo "Environment variables: GIT_BRANCH: [$GIT_BRANCH], GIT COMMITER: [$GIT_PREVIOUS_SUCCESSFUL_COMMIT], GIT_LOCAL_BRANCH: [$GIT_LOCAL_BRANCH]"
+   echo "Environment variables: GIT_BRANCH: [$GIT_BRANCH], GIT COMMITER: [$GIT_COMMITTER_NAME], GIT_AUTHOR: [$GIT_GIT_AUTHOR_NAME]"
     echo '----------CloudBees Jenkins Pipeline completed successfully--------------'
   }
  }
