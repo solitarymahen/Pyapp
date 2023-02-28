@@ -21,7 +21,7 @@ pipeline {
  post {
   success {
    echo '----------Sending Build Notification to CDD--------------'
-   echo "Environment variables: GIT_BRANCH: [$GIT_BRANCH], GIT COMMITER: [$GIT_COMMITTER_NAME], GIT_AUTHOR: [$GIT_GIT_AUTHOR_NAME]"
+   echo "Environment variables: GIT_BRANCH: [$GIT_BRANCH], GIT COMMITER: [$GIT_COMMITTER_NAME], GIT_AUTHOR: [$GIT_AUTHOR_NAME]"
     echo '----------CloudBees Jenkins Pipeline completed successfully--------------'
   }
  }
